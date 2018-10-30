@@ -1,8 +1,7 @@
-CC=gcc
+CC=g++
 
-daemon: daemon.c
-	$(CC) -o daemon daemon.c
-
+daemon: daemon.cpp
+	$(CC) -o daemon daemon.cpp notify.h notify.cpp config.h config.cpp
 clean:
 	rm -f daemon
 	rm -f *.o
