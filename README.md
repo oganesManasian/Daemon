@@ -14,3 +14,7 @@ Testing:
 1) Run command ./daemon start
 2) Run command ./tester.sh
 3) Watch changes in log
+
+Configuration file format:
+1) Write one path to watch after on each line of config file
+2) Name it config.txt
