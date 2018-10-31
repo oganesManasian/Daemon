@@ -12,9 +12,8 @@
 #include <string.h>
 
 #include "notify.h"
-#include "config.h"
 #define CONFIG_FILE_NAME "/config.txt"
-#define PID_FILE_PATH "/home/bi/run/daemon.pid"
+#define PID_FILE_PATH "/run/daemon.pid"
 
 int work = true;
 
@@ -150,6 +149,8 @@ int main(int argc, char* argv[])
   FILE *pid_fp;
   char cwd[PATH_MAX];
   char config_path[PATH_MAX];
+  char home_dir[PATH_MAX];
+
   // Check number of command line arguments
   if (argc != 2)
   {
@@ -163,13 +164,14 @@ int main(int argc, char* argv[])
     syslog(LOG_ERR, "Can not save current dir.");
   }
   strcpy(config_path, cwd);
-  concateStrings(config_path, CONFIG_FILE_NAME);
+  strcat(config_path, CONFIG_FILE_NAME);
   syslog(LOG_ERR, "Saved current dir.");
-  //printf("config path is: %s\n", config_path);   
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 
   // Start ot stop daemon depending command line arguments
-  pid_fp = fopen(PID_FILE_PATH, "r");
+  strcat(home_dir, getenv("HOME"));
+  strcat(home_dir, PID_FILE_PATH);
+  pid_fp = fopen(home_dir, "r");
   if (!strcmp(argv[1], "start"))
   {
     if(pid_fp == NULL)
